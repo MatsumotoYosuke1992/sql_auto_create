@@ -1,0 +1,127 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<script language="JavaScript">
+    function update_store_holiday(){
+        var target_date=document.getElementById('target_date').value.replace(/\r\n|\r/g, "\n");
+        var id_3=document.getElementById('id_3');
+        var is_holiday_flg=document.getElementById('is_holiday_flg');
+        var lines = target_date.split( '\n' );
+        var combin_target_date = '';
+        var update_sql;
+
+        for ( var i = 0; i < lines.length; i++ ) {
+            // 空行は無視する
+            if ( lines[i] == '' ) {
+                continue;
+            }
+            
+            var beforeDate = moment(lines[i], "MM/DD/YYYY");
+            // var beforeDate = moment(lines[i], "MM/DD/YYYY").subtract(1, 'days'); 
+            var afterDate = beforeDate.format("YYYY/MM/DD");
+            if (i == 0) {
+                combin_target_date = combin_target_date + "'" + afterDate + "'";
+            } else {
+                combin_target_date = combin_target_date + ",'" + afterDate + "'";
+            }
+        }
+        update_sql = "-- store_id=" + id_3.value + " : XXXXXXXXXX " + (is_holiday_flg.value == 1 ? "全店舗共通休業日" : "全店舗共通営業日")
+            + "\n"
+            + "update calendar set is_holiday = " + is_holiday_flg.value + ", calendar_type = 2, update_id = 'manual', update_datetime = current_timestamp where target_date in (" 
+            + "\n"
+            + combin_target_date
+            + "\n"
+            + ") and dealer_id in (select dealer_id from car_dealer where store_id = "
+            + id_3.value
+            + ");"
+        
+        document.holiday_changes_dealer_company.result.value=update_sql;
+     }
+ 
+     function update_dealer_holiday(){
+        var target_date_2=document.getElementById('target_date_2').value.replace(/\r\n|\r/g, "\n");
+        var store_id_4=document.getElementById('store_id_4');
+        var is_holiday_flg_2=document.getElementById('is_holiday_flg_2');
+        var custom_store_id_2=document.getElementById('custom_store_id_2');
+        var lines = target_date_2.split( '\n' );
+        var combin_target_date = '';
+        var update_sql;
+
+        for ( var i = 0; i < lines.length; i++ ) {
+            // 空行は無視する
+            if ( lines[i] == '' ) {
+                continue;
+            }
+            
+            var beforeDate = moment(lines[i], "MM/DD/YYYY");
+            var afterDate = beforeDate.format("YYYY/MM/DD");
+            if (i == 0) {
+                combin_target_date = combin_target_date + "'" + afterDate + "'";
+            } else {
+                combin_target_date = combin_target_date + ",'" + afterDate + "'";
+            }
+        }
+        
+        update_sql = "-- store_id=" + store_id_4.value + " custom_store_id='" + custom_store_id_2.value + "' : XXXXXXXXXX " + (is_holiday_flg_2.value == 1 ? "店舗休業日" : "店舗営業日")
+            + "\n"
+            + "update calendar set is_holiday = " + is_holiday_flg_2.value + ", calendar_type = 2, update_id = 'manual', update_datetime = current_timestamp where target_date in (" 
+            + "\n"
+            + combin_target_date
+            + "\n"
+            + ") and dealer_id in (select dealer_id from car_dealer where store_id = "
+            + store_id_4.value
+            + " and custom_store_id = '"
+            + custom_store_id_2.value
+            + "');"
+        
+        document.holiday_changes_dealer.result.value=update_sql;
+     }
+</script>
+
+<h2>Setting holidays without store holiday rules</h2>
+<form name="holiday_changes_dealer_company">
+ target_date（エクセルの値ペタでいいよー）
+ <br>
+ <textarea id="target_date" rows="10" cols="60" onchange="update_store_holiday()">
+4/18/2023
+7/18/2023
+10/17/2023
+1/23/2024
+</textarea>
+ <br>  store_id  <br>
+ <input type="text" id="id_3" onchange="update_store_holiday()">
+ <br>
+ is_holiday
+ <br>
+ <select id="is_holiday_flg"  onchange="update_store_holiday()">
+   <option value="0">営業日設定：0</option>
+   <option value="1" selected>休日設定：1</option>
+ </select>
+ <br><br>
+ <font color="#ff0000">UPDATE SQL  </font><br><textarea name="result" value="" rows="10" cols="60"></textarea>
+</form>
+
+<h2>Setting holidays without dealer rules</h2>
+<form name="holiday_changes_dealer">
+ target_date（エクセルの値ペタでいいよー）
+ <br>
+ <textarea id="target_date_2" rows="10" cols="60" onchange="update_dealer_holiday()">
+4/18/2023
+7/18/2023
+10/17/2023
+1/23/2024
+</textarea>
+ <br>  store_id  <br>
+ <input type="text" id="store_id_4" onchange="update_dealer_holiday()">
+ <br>  custom_store_id  <br>
+ <input type="text" id="custom_store_id_2" onchange="update_dealer_holiday()">
+ <br>
+ is_holiday
+ <br>
+ <select id="is_holiday_flg_2"  onchange="update_dealer_holiday()">
+   <option value="0" selected>営業日設定：0</option>
+   <option value="1" >休日設定：1</option>
+ </select>
+ <br><br>
+ <font color="#ff0000">UPDATE SQL  </font><br><textarea name="result" value="" rows="10" cols="60"></textarea>
+</form>
+
+

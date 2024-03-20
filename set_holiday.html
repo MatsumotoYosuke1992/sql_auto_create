@@ -1,0 +1,395 @@
+script language=JavaScript
+    function keisan(){         id=document.getElementById('id');
+        console.log(id);
+
+        sun = 0;
+        mon = 0;
+        tue = 0;
+        wed = 0;
+        thu = 0;
+        fri = 0;
+        sat = 0;
+        for (i=0;i5;i++){
+            if(document.myform.elements[i7].checked==true){
+                sun = sun + 2i;
+            }
+            if(document.myform.elements[i7+1].checked==true){
+                mon = mon + 2i;
+            }
+            if(document.myform.elements[i7+2].checked==true){
+                tue = tue + 2i;
+            }
+            if(document.myform.elements[i7+3].checked==true){
+                wed = wed + 2i;
+            }
+            if(document.myform.elements[i7+4].checked==true){
+                thu = thu + 2i;
+            }
+            if(document.myform.elements[i7+5].checked==true){
+                fri = fri + 2i;
+            }
+            if(document.myform.elements[i7+6].checked==true){
+                sat = sat + 2i;
+            }
+        }
+        
+        sql = INSERT INTO holidays_rule (id,date_from,date_until,sunday,monday,tuesday,wednesday,thursday,friday,saturday,create_id,create_datetime,update_id,update_datetime) VALUES ( 
+        + id.value + , current_date,null,
+        + sun + ,
+        + mon + ,
+        + tue + ,
+        + wed + ,
+		+ thu + ,
+        + fri + ,
+        + sat + ,'manual',current_timestamp,'manual',current_timestamp);;
+        document.myform.total.value=sql;
+    }
+
+    function keisan_dealer(){         id=document.getElementById('id_2');
+        custom_store_id=document.getElementById('custom_store_id');
+
+        sun = 0;
+        mon = 0;
+        tue = 0;
+        wed = 0;
+        thu = 0;
+        fri = 0;
+        sat = 0;
+        for (i=0;i5;i++){
+            if(document.dealer.elements[i7].checked==true){
+                sun = sun + 2i;
+            }
+            if(document.dealer.elements[i7+1].checked==true){
+                mon = mon + 2i;
+            }
+            if(document.dealer.elements[i7+2].checked==true){
+                tue = tue + 2i;
+            }
+            if(document.dealer.elements[i7+3].checked==true){
+                wed = wed + 2i;
+            }
+            if(document.dealer.elements[i7+4].checked==true){
+                thu = thu + 2i;
+            }
+            if(document.dealer.elements[i7+5].checked==true){
+                fri = fri + 2i;
+            }
+            if(document.dealer.elements[i7+6].checked==true){
+                sat = sat + 2i;
+            }
+        }
+        
+        sql = INSERT INTO store_holidays_rule (store_id,date_from,date_until,sunday,monday,tuesday,wednesday,thursday,friday,saturday,create_id,create_datetime,update_id,update_datetime) VALUES ( 
+        + (select store_id from car_dealer where id= + id.value +  and custom_store_id=' + custom_store_id.value + '),
+        + current_date,null,
+        + sun + ,
+        + mon + ,
+        + tue + ,
+        + wed + ,
+		+ thu + ,
+        + fri + ,
+        + sat + ,'manual',current_timestamp,'manual',current_timestamp);;
+        document.dealer.total.value=sql;
+    }
+
+script
+
+h2For Dealer Companyh2
+form name=myform
+table cellpadding=1 cellspacing=0 border=0
+    tr
+        thth
+        th日th
+        th月th
+        th火th
+        th水th
+        th木th
+        th金th
+        th土th
+    tr
+    tr
+        td align=left
+            第1週
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+    tr
+    tr
+        td align=left
+            第2週
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+    tr
+    tr
+        td align=left
+            第3週
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+    tr
+    tr
+        td align=left
+            第4週
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+    tr
+    tr
+        td align=left
+            第5週
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+        td align=left
+            input type=checkbox onclick=keisan()
+        td
+    tr
+table id input type=text id=id onchange=keisan()
+br
+font color=#ff0000INSERT SQL  fontbrtextarea name=total value= rows=10 cols=60textarea
+
+form
+
+
+h2For Dealerh2
+form name=dealer
+table cellpadding=1 cellspacing=0 border=0
+    tr
+        thth
+        th日th
+        th月th
+        th火th
+        th水th
+        th木th
+        th金th
+        th土th
+    tr
+    tr
+        td align=left
+            第1週
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+    tr
+    tr
+        td align=left
+            第2週
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+    tr
+    tr
+        td align=left
+            第3週
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+    tr
+    tr
+        td align=left
+            第4週
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+    tr
+    tr
+        td align=left
+            第5週
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+        td align=left
+            input type=checkbox onclick=keisan_dealer()
+        td
+    tr
+table id input type=text id=id_2 onchange=keisan_dealer()
+custom_store_id input type=text id=custom_store_id onchange=keisan_dealer()
+br
+font color=#ff0000INSERT SQL  fontbrtextarea name=total value= rows=10 cols=60textarea
+
+form
